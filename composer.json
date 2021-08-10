@@ -1,0 +1,46 @@
+{
+    "name": "coding-socks/laravel-mail-failover",
+    "description": "A mailer for Laravel which allows you to failover to a different mailer when your primary mailer fails.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "László Görög",
+            "homepage": "https://github.com/nerg4l"
+        }
+    ],
+    "minimum-stability": "alpha",
+    "require": {
+        "php": "^7.3 || ^8.0",
+        "illuminate/support": "^6.10 || ^7.0 || ^8.0",
+        "illuminate/mail": "^6.10 || ^7.0 || ^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.17 || ^5.19 || ^6.19",
+        "phpunit/phpunit": "^9.3",
+        "mockery/mockery": "^1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "CodingSocks\\MailFailover\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CodingSocks\\MailFailover\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        },
+        "laravel": {
+            "providers": [
+              "FailoverTransportServiceProvider"
+            ]
+        }
+    }
+}
