@@ -26,7 +26,12 @@ class MailFailoverServiceProvider extends ServiceProvider
                         throw new InvalidArgumentException("Mailer [{$name}] is not defined.");
                     }
 
-                    $transports[] = $manager->createTransport($config);
+                    // Here we will check if the "driver" key exists and if it does we will set
+                    // transport configuration parameter in order to  provide "BC" for any
+                    // Laravel <= 6.x style mail configuration files.
+                    $transports[] = $this->app['config']['mail.driver']
+                        ? $manager->createTransport(array_merge($config, ['transport' => $name]))
+                        : $manager->createTransport($config);
                 }
                 return new FailoverTransport($transports);
             });
@@ -36,7 +41,8 @@ class MailFailoverServiceProvider extends ServiceProvider
     /**
      * Get the mail connection configuration.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return array
      */
     protected function getConfig(string $name)
